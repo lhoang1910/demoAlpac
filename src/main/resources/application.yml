@@ -1,0 +1,28 @@
+spring:
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/TrainingDB
+        username: postgres
+        password: 123456
+
+    jpa:
+        show-sql: true
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+
+role:
+    ADMIN: 1
+    TRUONG_PHONG: 2
+    PHO_PHONG: 3
+    NHAN_VIEN: 4
+
+status:
+    Customer:
+        TIEM_NANG: 1
+        THONG_THUONG: 2
+        BI_KHOA: 3
+        BLACKLIST: 4
+
