@@ -1,13 +1,12 @@
 package com.demo.demo.dto.response;
 
+import com.demo.demo.component.constant.IdentificationType;
+import com.demo.demo.component.constant.DateTimeFormat;
 import com.demo.demo.entity.CustomerEntity;
-import com.demo.demo.entity.json.CustomerAddressConverter;
-import com.demo.demo.entity.json.CustomerIndentificationConverter;
-import com.demo.demo.entity.json.CustomerRelativesConverter;
 import com.demo.demo.entity.model.CustomerAddressModel;
 import com.demo.demo.entity.model.CustomerIdentificationModel;
 import com.demo.demo.entity.model.CustomerRelativeModel;
-import jakarta.persistence.Convert;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,17 +23,16 @@ public class CustomerResponse {
     private String name;
     private String gender;
 
-    @Convert(converter = CustomerIndentificationConverter.class)
     private CustomerIdentificationModel identification;
     private String phoneNumber;
     private String email;
+
+    @JsonFormat(pattern = DateTimeFormat.DATE_FORMAT)
     private Date dateOfBirth;
 
-    @Convert(converter = CustomerAddressConverter.class)
     private CustomerAddressModel address;
     private String jobTitle;
 
-    @Convert(converter = CustomerRelativesConverter.class)
     private List<CustomerRelativeModel> customerRelatives;
     private int status;
 
@@ -51,4 +49,16 @@ public class CustomerResponse {
         this.customerRelatives = newCustomer.getCustomerRelatives();
         this.status = newCustomer.getStatus();
     }
+
+    public String setIdenTypeName(int role){
+
+        return switch (role) {
+            case IdentificationType.CCCD -> "Căn cước công dân";
+            case IdentificationType.GIAY_KHAI_SINH -> "Giấy khai sinh";
+            case IdentificationType.HO_CHIEU -> "Hộ Chiếu";
+            case IdentificationType.CMND -> "Chứng minh nhân dân";
+            default -> "kHÔNG XÁC ĐỊNH";
+        };
+    }
+
 }

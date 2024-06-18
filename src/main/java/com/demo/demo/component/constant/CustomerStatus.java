@@ -1,4 +1,4 @@
-package com.demo.demo.constant;
+package com.demo.demo.component.constant;
 
 public class CustomerStatus {
     public static final int TIEM_NANG = 1;

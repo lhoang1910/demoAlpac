@@ -1,6 +1,8 @@
 package com.demo.demo.dto.request;
+import com.demo.demo.component.constant.DateTimeFormat;
+import com.demo.demo.entity.model.CustomerIdentificationModel;
 import com.demo.demo.entity.model.CustomerRelativeModel;
-import jakarta.validation.constraints.*;
+import javax.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,22 +17,13 @@ import java.util.List;
 @NoArgsConstructor
 public class CreateCustomerRequest {
 
-    private final String DATE_FORMAT = "yyyy:MM:dd";
-
-    @NotNull(message = "không được để trống tên")
-    @NotEmpty(message = "Không được để trống tên")
     @NotBlank(message = "Không được để trống tên")
     private String name;
 
-    @NotNull(message = "không được để trống giới tính")
-    @NotEmpty(message = "Không được để trống giới tính")
     @NotBlank(message = "Không được để trống giới tính")
     private String gender;
 
-    @NotNull(message = "không được để trống kiểu định danh")
-    private int identificationType;
-
-    private String idenId;
+    private CustomerIdentificationModel identificationModel;
 
     @Pattern(regexp = "^[\\d\\+]{9,15}$")
     private String phoneNumber;
@@ -45,13 +38,9 @@ public class CreateCustomerRequest {
     private String district;
     private String city;
 
-    @NotNull(message = "không được để trống quốc gia")
-    @NotEmpty(message = "Không được để trống quốc gia")
     @NotBlank(message = "Không được để trống quốc gia")
     private String country;
 
-    @NotNull(message = "không được để trống nghề nghiệp")
-    @NotEmpty(message = "Không được để trống nghề nghiệp")
     @NotBlank(message = "Không được để trống nghề nghiệp")
     private String jobTitle;
 
@@ -68,15 +57,15 @@ public class CreateCustomerRequest {
 
     public boolean isDateOfBirthValid() {
         if (dateOfBirth == null) {
-            return false;
+            return true;
         }
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+        SimpleDateFormat sdf = new SimpleDateFormat(DateTimeFormat.DATE_FORMAT);
         sdf.setLenient(false);
         try {
             sdf.parse(sdf.format(dateOfBirth));
-            return true;
-        } catch (ParseException e) {
             return false;
+        } catch (ParseException e) {
+            return true;
         }
     }
 

@@ -1,4 +1,4 @@
-package com.demo.demo.constant;
+package com.demo.demo.component.constant;
 
 public class IdentificationType {
     public static final int CCCD = 1;

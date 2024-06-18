@@ -1,5 +1,6 @@
 package com.demo.demo.dto.response;
 
+import com.demo.demo.component.constant.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,16 +18,16 @@ public class LoginSuccessResponse {
     public String setRoleName(int role){
         String roleName = "";
         switch (role){
-            case 1:
+            case UserRole.ROLE_ADMIN:
                 roleName = "ADMIN";
                 break;
-            case 2:
+            case UserRole.ROLE_TRUONG_PHONG:
                 roleName = "TRƯỞNG PHÒNG";
                 break;
-            case 3:
+            case UserRole.ROLE_PHO_PHONG:
                 roleName = "PHÓ PHÒNG";
                 break;
-            case 4:
+            case UserRole.ROLE_NHAN_VIEN:
                 roleName = "NHÂN VIÊN";
                 break;
             default:

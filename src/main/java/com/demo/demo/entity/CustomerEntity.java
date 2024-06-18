@@ -1,18 +1,21 @@
 package com.demo.demo.entity;
 
-import com.demo.demo.entity.json.CustomerAddressConverter;
-import com.demo.demo.entity.json.CustomerIndentificationConverter;
-import com.demo.demo.entity.json.CustomerRelativesConverter;
+import com.demo.demo.component.constant.Jpa_Type;
+import com.demo.demo.component.constant.DateTimeFormat;
 import com.demo.demo.entity.model.CustomerAddressModel;
 import com.demo.demo.entity.model.CustomerIdentificationModel;
 import com.demo.demo.entity.model.CustomerRelativeModel;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
@@ -21,7 +24,8 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Table(name = "customers")
-
+@TypeDef(name = Jpa_Type.JSON_BINARY, typeClass = JsonBinaryType.class)
+@Builder
 public class CustomerEntity {
     @Id
     private String id;
@@ -31,39 +35,29 @@ public class CustomerEntity {
     private String name;
     private String gender;
 
-    @Convert(converter = CustomerIndentificationConverter.class)
-    @Column(columnDefinition = "json")
+    @Type(type = Jpa_Type.JSON_BINARY)
+    @Column(columnDefinition = Jpa_Type.JSON_BINARY)
     private CustomerIdentificationModel identification;
     private String phoneNumber;
     private String email;
+
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = DateTimeFormat.DATE_FORMAT)
     private Date dateOfBirth;
 
-
-    @Column(columnDefinition = "json")
-    private String addressJson;
-
-    @Convert(converter = CustomerAddressConverter.class)
-    @Transient
+    @Type(type = Jpa_Type.JSON_BINARY)
+    @Column(columnDefinition = Jpa_Type.JSON_BINARY)
     private CustomerAddressModel address;
     private String jobTitle;
 
-    @Convert(converter = CustomerRelativesConverter.class)
-    @Column(columnDefinition = "json")
+    @Type(type = Jpa_Type.JSON_BINARY)
+    @Column(columnDefinition = Jpa_Type.JSON_BINARY)
     private List<CustomerRelativeModel> customerRelatives;
 
-    public void setAddress(CustomerAddressModel customerAddressModel) {
-        this.address = address;
-        if (address != null) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            try {
-                this.addressJson = objectMapper.writeValueAsString(customerAddressModel);
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
+    @Column(nullable = true)
     private int status;
 
+    @Column(nullable = true)
     private boolean isDelete;
+
 }

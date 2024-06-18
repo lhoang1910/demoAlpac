@@ -1,0 +1,26 @@
+[
+  {
+    "typeInsuranceCode": "VNI",
+    "nameInsuranceType": "Bảo hiểm Nhân thọ",
+    "paymentFee": "3000000",
+    "insuranceFee": "300000000"
+  },
+  {
+    "typeInsuranceCode": "VNB",
+    "nameInsuranceType": "Bảo hiểm Xe máy",
+    "paymentFee": "66000",
+    "insuranceFee": "150000000"
+  },
+  {
+    "typeInsuranceCode": "VCI",
+    "nameInsuranceType": "Bảo hiểm Ô tô",
+    "paymentFee": "437000",
+    "insuranceFee": "150000000"
+  },
+  {
+    "typeInsuranceCode": "VHI",
+    "nameInsuranceType": "Bảo hiểm y tế",
+    "paymentFee": "680400",
+    "insuranceFee": "1000000000000"
+  }
+]
